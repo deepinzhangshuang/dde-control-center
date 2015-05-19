@@ -62,7 +62,7 @@ private:
 NaviBar::NaviBar()
         : QGraphicsRectItem()
 {
-    setRect(0, 0, 5 * ICON_SIZE, ICON_SIZE);
+    setRect(0, 0, 5 * ICON_SIZE, ICON_SIZE);//可选范围坐标设置
     setPen(Qt::NoPen);
 
 #if 0
@@ -85,10 +85,10 @@ NaviBar::NaviBar()
 
     m_cursor = new QGraphicsRectItem;
     m_cursor->setParentItem(this);
-    m_cursor->setRect(0, 0, ICON_SIZE, ICON_SIZE);
+    m_cursor->setRect(50, -150, ICON_SIZE*1.5, ICON_SIZE*1.5);
     m_cursor->setZValue(1);
     m_cursor->setPen(Qt::NoPen);
-    m_cursor->setBrush(QColor(Qt::white));
+    m_cursor->setBrush(QColor(Qt::black));
     m_cursor->setOpacity(0.6);
 
 }
@@ -143,7 +143,9 @@ public:
         setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         setFrameShape(QFrame::NoFrame);
-       // setWindowTitle("Parallax Home");
+        setWindowTitle(" ");
+
+       // setAutoFillBackground(0);
 
         connect(&m_pageAnimator, SIGNAL(frameChanged(int)), SLOT(shiftPage(int)));
         m_pageAnimator.setDuration(500);
@@ -251,18 +253,19 @@ private:
 
     void setupScene() {
 
-        qsrand(QTime::currentTime().second());
-#if 0
+     //   qsrand(QTime::currentTime().second());
+
         QStringList names;
-        names << "brownies" << "cookies" << "mussels" << "pizza" << "sushi";
-        names << "chocolate" << "fish" << "pasta" << "puding" << "trouts";
+        names << "account_press" << "display_press" << "default_applications_press" << "personalization_press" << "network_press";
+        names << "sound_press" << "date_time_normal" << "power_press" << "mouse_touchpad_press" << "keyboard_press"<<"shortcuts_press";
+        names <<"grub_press"<<"system_info_press";
 
         for (int i = 0; i < PAGE_COUNT * 2; ++i) {
             QString fname = names[i];
             fname.prepend(":/images/");
-            fname.append(".jpg");
+            fname.append(".png");
             QPixmap pixmap(fname);
-            pixmap = pixmap.scaledToWidth(200);
+            pixmap = pixmap.scaledToWidth(32);
             QGraphicsPixmapItem *item = m_scene.addPixmap(pixmap);
             m_items << item;
 
@@ -270,15 +273,16 @@ private:
             qreal y = (i & 1) / 2.0  + (qrand() % 20) / 100.0;
             m_positions << QPointF(x, y);
             item->setZValue(1);
+
+           // connect(pixmap,SIGNAL(pageSelected(int)),SLOT(choosePage(int)));
         }
-#endif
+
 
         m_naviBar = new NaviBar;
         m_scene.addItem(m_naviBar);
         m_naviBar->setZValue(2);
-        connect(m_naviBar, SIGNAL(pageSelected(int)), SLOT(choosePage(int)));
-
-        m_wallpaper = m_scene.addPixmap(QPixmap(":/icons/surfacing.png"));
+        connect(m_naviBar, SIGNAL(pageSelected(int)), SLOT(choosePage(int)));      
+        m_wallpaper = m_scene.addPixmap(QPixmap(":/images/surfacing.png"));
         m_wallpaper->setZValue(0);
 
         m_scene.setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -299,9 +303,13 @@ int main(int argc, char *argv[])
    // setWindowFlags(Qt::WindowStaysOnTopHint);
     //setWindowFlags( Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
     //w.setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
+    //设置无边框，不可移动
+    w.setWindowOpacity(1);
+    w.setWindowFlags(Qt::FramelessWindowHint);
+    w.setAttribute(Qt::WA_TranslucentBackground);
 
     w.show();
-
+    //w.move(600,120);
 
     return app.exec();
 }
