@@ -2,9 +2,16 @@ QT += widgets
 QT += dbus
 SOURCES += \
     main.cpp \
-    myview.cpp \
-    myitem.cpp
+    DButton.cpp \
+    DSwitchbutton.cpp \
+    DComponent.cpp \
+    dimage.cpp \
+    dbus.cpp
 
 HEADERS += \
-    myitem.h \
-    myview.h
+    DButton.h \
+    DSwitchbutton.h \
+    DComponent.h \
+    dimage.h \
+    dbus.h
+
