@@ -24,10 +24,13 @@
 #define DWIDGET_H
 
 #include <QGraphicsItem>
+#include <QObject>
 
 
-class DComponent : public QGraphicsItem,QObject
+class DComponent :  public QObject , public QGraphicsItem
 {
+
+  Q_OBJECT
 
 public:
     DComponent();
@@ -96,6 +99,8 @@ public:
     {
         backgroundEnabled = flag;
     }
+
+public slots:
 
 protected:
     void keyPressEvent(QKeyEvent *event);

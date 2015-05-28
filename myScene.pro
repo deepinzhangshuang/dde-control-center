@@ -1,5 +1,6 @@
 QT += widgets
 QT += dbus
+QT += core
 SOURCES += \
     main.cpp \
     DButton.cpp \

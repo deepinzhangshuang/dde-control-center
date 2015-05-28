@@ -50,13 +50,14 @@ SOURCES       = main.cpp \
 		DSwitchbutton.cpp \
 		DComponent.cpp \
 		dimage.cpp \
-		dbus.cpp 
+		dbus.cpp moc_DComponent.cpp
 OBJECTS       = main.o \
 		DButton.o \
 		DSwitchbutton.o \
 		DComponent.o \
 		dimage.o \
-		dbus.o
+		dbus.o \
+		moc_DComponent.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -325,8 +326,12 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_DComponent.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_DComponent.cpp
+moc_DComponent.cpp: DComponent.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/zs/workdir/dde-control-center -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtDBus -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include DComponent.h -o moc_DComponent.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
@@ -337,7 +342,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: 
+compiler_clean: compiler_moc_header_clean 
 
 ####### Compile
 
@@ -368,6 +373,9 @@ dbus.o: dbus.cpp dbus.h \
 		DButton.h \
 		DComponent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dbus.o dbus.cpp
+
+moc_DComponent.o: moc_DComponent.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DComponent.o moc_DComponent.cpp
 
 ####### Install
 
