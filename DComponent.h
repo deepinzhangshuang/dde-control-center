@@ -25,13 +25,11 @@
 
 #include <QGraphicsItem>
 #include <QObject>
+#include <QtCore>
 
-
-class DComponent :  public QObject , public QGraphicsItem
+class DComponent :  public QObject, public QGraphicsItem
 {
-
-  Q_OBJECT
-
+    Q_OBJECT
 public:
     DComponent();
 
@@ -54,11 +52,6 @@ public:
         width = w;
         height = h;
     }
-
-   // void addActionEvent()
-   // {
-
-   // }
 
     void setPressBackgroundColor(const QColor &color)
     {
@@ -99,9 +92,11 @@ public:
     {
         backgroundEnabled = flag;
     }
-
-public slots:
-
+    
+signals:
+    
+    void fireAction();
+    
 protected:
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -112,7 +107,7 @@ protected:
 
 private:
     const QColor defualtPress = Qt::black;
-    const QColor defualtRelease = Qt::darkGray;
+    const QColor defualtRelease = QColor(33, 33, 33, 255);
     const QColor defualtHover = Qt::black;
 
     bool pressed;
@@ -129,6 +124,7 @@ private:
     QPixmap pressImage;
     QPixmap releaseImage;
     QPixmap hoverImage;
+
 };
 
 #endif // DWIDGET_H

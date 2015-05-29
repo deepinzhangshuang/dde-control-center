@@ -28,9 +28,11 @@
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 
-
 DButton::DButton()
 {
-
+    
 }
+
+
+
 

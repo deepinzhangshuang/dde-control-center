@@ -28,12 +28,9 @@
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 
-
-
 DSwitchbutton::DSwitchbutton()
 {
     setBounds(-20,-8,40,16);
-
 }
 
 void DSwitchbutton::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -105,27 +102,20 @@ void DSwitchbutton::paintSwitchOn(QPainter *painter)
     //draw the round button
     painter->setBrush(Qt::black);
     painter->drawPie(lineLen/2 -radius, -radius, radius*2, radius*2, 0*16, 360*16);
-
-
 }
 
 // 鼠标按下事件处理函数，设置被点击的图形项获得焦点，并改变光标外观
 void DSwitchbutton::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-
     if(switched)
         switched = false;
     else
         switched = true;
-
     update();
-
-
 }
 
 // 鼠标按下事件处理函数，设置被点击的图形项获得焦点，并改变光标外观
 void DSwitchbutton::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-
 
 }

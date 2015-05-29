@@ -2,12 +2,12 @@
 #include "qpainter.h"
 
 
-DImage::DImage()
+Dimage::Dimage()
 {
 
 }
 
-DImage::DImage(QString path)
+Dimage::Dimage(QString path)
 
 {
    image.load(path);
@@ -15,7 +15,7 @@ DImage::DImage(QString path)
               image.width(),image.height());
 }
 
-void DImage::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+void Dimage::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
               QWidget *widget)
 {
 
